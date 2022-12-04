@@ -10,10 +10,11 @@ import {
   UserIcon,
 } from '@heroicons/react/outline';
 import Avatar from './Avatar';
+import { useUserData, useSignOut } from '@nhost/react';
 
 const Layout = () => {
-  const user = null;
-
+  const user = useUserData();
+  const { signOut } = useSignOut()
   const menuItems = [
     {
       label: 'Dashboard',
@@ -27,7 +28,7 @@ const Layout = () => {
     },
     {
       label: 'Logout',
-      onClick: () => null,
+      onClick: signOut,
       icon: LogoutIcon,
     },
   ];
@@ -93,6 +94,7 @@ const Layout = () => {
           <Outlet context={{ user }} />
         </div>
       </main>
+      {console.log(user)}
     </div>
   );
 };

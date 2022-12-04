@@ -26,6 +26,7 @@ const Dashboard = () => {
           Edit the <code>src/pages/Dashboard.js</code> file to populate this
           page.
         </p>
+        {console.log(user)}
       </div>
     </>
   );

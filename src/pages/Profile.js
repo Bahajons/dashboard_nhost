@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useOutletContext } from 'react-router-dom';
 import Input from '../components/Input';
-
 const Profile = () => {
   const { user } = useOutletContext();
 
