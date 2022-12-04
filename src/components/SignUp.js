@@ -1,19 +1,19 @@
 import styles from '../styles/components/SignUp.module.css';
 
 import { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import Input from './Input';
-import { useSignUpEmailPassword } from '@nhost/react';
+import { useSendVerificationEmail, useSignInEmailSecurityKey, useSignUpEmailPassword } from '@nhost/react';
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate=useNavigate()
 
-
-  const { signUpEmailPassword, isLoading, isSuccess, isError, needsEmailVerification } = useSignUpEmailPassword()
-
+  const { signUpEmailPassword, isLoading, isSuccess, isError, needsEmailVerification, sendVerificationEmail } = useSignUpEmailPassword()
+  const { sendEmail, error } = useSendVerificationEmail()
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
@@ -24,8 +24,14 @@ const SignUp = () => {
         firstName,
         lastName
       }
+    }).then((res) => {
+      console.log(res);
+      navigate('/sign-in')
     })
-    needsEmailVerification(true)
+      .catch((err) => {
+        console.log(err);
+      })
+    // needsEmailVerification(true)
   };
 
   if (isSuccess) {
